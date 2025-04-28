@@ -3,1512 +3,753 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MoreLogin - 专业的指纹浏览器，为数字营销人员提供多账户管理和反指纹追踪解决方案">
-    <meta name="keywords" content="指纹浏览器,多账户管理,反指纹追踪,MoreLogin,数字营销工具,浏览器指纹,多账号管理,反欺诈,隐私保护">
-    <title>MoreLogin - 专业的指纹浏览器解决方案</title>
+    <title>MoreLogin | V2.31.0</title>
     <style>
-        :root {
-            --primary-color: #1e88e5;
-            --primary-light: #6ab7ff;
-            --primary-dark: #005cb2;
-            --secondary-color: #f5f5f5;
-            --text-color: #333;
-            --text-light: #666;
-            --text-white: #fff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
         
         body {
-            background-color: #fff;
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
+            background-color: #f5f5f5;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: var(--text-white);
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-        }
-        
-        .header-content {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            height: 100vh;
+        }
+        
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 200px;
+            background: linear-gradient(180deg, #4e54c8, #6a6fd8);
+            color: white;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
         }
         
         .logo {
             display: flex;
             align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .logo svg {
-            margin-right: 10px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            color: var(--text-white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 5px 0;
-            position: relative;
-        }
-        
-        nav ul li a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--text-white);
-            bottom: 0;
-            left: 0;
-            transition: var(--transition);
-        }
-        
-        nav ul li a:hover:after {
-            width: 100%;
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, rgba(13, 17, 23, 0.9), rgba(20, 30, 48, 0.85)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%231e88e5"/><path d="M0 400 Q 300 300 600 400 T 1200 400 L 1200 600 L 0 600 Z" fill="%23005cb2"/><circle cx="900" cy="150" r="80" fill="%236ab7ff" opacity="0.6"/><circle cx="300" cy="200" r="60" fill="%236ab7ff" opacity="0.4"/></svg>');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            color: var(--text-white);
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero:before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(96, 165, 250, 0.03) 10%, transparent 10.5%),
-                        radial-gradient(circle, rgba(96, 165, 250, 0.02) 10%, transparent 10.5%);
-            background-size: 50px 50px;
-            background-position: 0 0, 25px 25px;
-            animation: backgroundMove 60s linear infinite;
-            z-index: 1;
-        }
-        
-        @keyframes backgroundMove {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero p {
+            padding: 0 20px 20px;
             font-size: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .hero-badges {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .badge {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 6px 15px;
-            font-size: 14px;
-            font-weight: 500;
-            backdrop-filter: blur(5px);
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: var(--text-white);
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: 2px solid var(--primary-color);
-            margin: 0 10px;
-        }
-        
-        .btn:hover {
-            background-color: transparent;
-            color: var(--text-white);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--text-white);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--text-white);
-            color: var(--primary-color);
-        }
-        
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 3px;
-            background-color: var(--primary-color);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .section-title p {
-            color: var(--text-light);
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        /* 账号管理部分样式 */
-        .account-management {
-            background-color: #fff;
-            padding: 80px 0;
-        }
-        
-        .account-management-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-top: 40px;
-        }
-        
-        .account-management-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .account-management-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
-        
-        .account-management-text {
-            flex: 1;
-        }
-        
-        .account-management-text h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: var(--primary-dark);
-        }
-        
-        .benefit-list {
-            list-style: none;
-            margin: 25px 0;
-        }
-        
-        .benefit-list li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .benefit-icon {
-            color: var(--primary-color);
             font-weight: bold;
-            font-size: 18px;
+        }
+        
+        .logo img {
+            width: 30px;
             margin-right: 10px;
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            background-color: #e3f2fd;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 24px;
         }
         
-        /* 技术原理部分样式 */
-        .technology {
-            background-color: var(--secondary-color);
-            padding: 80px 0;
-        }
-        
-        .technology-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-top: 40px;
-        }
-        
-        .technology-text {
+        .sidebar-menu {
             flex: 1;
         }
         
-        .technology-text h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: var(--primary-dark);
-        }
-        
-        .technology-features {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .tech-feature {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-        
-        .tech-icon {
-            flex-shrink: 0;
-        }
-        
-        .tech-info h4 {
-            margin-bottom: 8px;
-            font-size: 18px;
-            color: var(--text-color);
-        }
-        
-        .tech-info p {
-            color: var(--text-light);
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        
-        .technology-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .technology-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
-        
-        .features {
-            background-color: var(--secondary-color);
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
+        .sidebar-item {
+            padding: 12px 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            background-color: var(--primary-light);
-            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
         
-        .feature-card h3 {
-            margin-bottom: 15px;
-            font-size: 22px;
+        .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
-        .feature-card p {
-            color: var(--text-light);
+        .sidebar-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
         }
         
-        .how-it-works {
-            background-color: #fff;
-        }
-        
-        .steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            counter-reset: step-counter;
-        }
-        
-        .step {
-            flex: 0 0 calc(33.333% - 40px);
-            margin: 20px;
-            position: relative;
-            padding-left: 70px;
-            counter-increment: step-counter;
-        }
-        
-        .step:before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            color: var(--text-white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .step h3 {
-            margin-bottom: 15px;
-            font-size: 22px;
-        }
-        
-        .step p {
-            color: var(--text-light);
-        }
-        
-        .pricing {
-            background-color: var(--secondary-color);
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .pricing-card.popular:before {
-            content: '推荐';
-            position: absolute;
-            top: 20px;
-            right: -30px;
-            background-color: var(--primary-color);
-            color: var(--text-white);
-            padding: 5px 40px;
-            transform: rotate(45deg);
-            font-size: 14px;
-            font-weight: bold;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pricing-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        
-        .price {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-        
-        .price span {
+        .sidebar-item i {
+            margin-right: 10px;
             font-size: 16px;
-            font-weight: normal;
-            color: var(--text-light);
         }
         
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .pricing-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .faq {
-            background-color: #fff;
-        }
-        
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            margin-bottom: 20px;
+        .new-profile-btn {
+            background-color: white;
+            color: #4e54c8;
+            border: none;
             border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .faq-question {
-            background-color: var(--secondary-color);
-            padding: 20px;
+            padding: 10px;
+            margin: 20px;
             cursor: pointer;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-weight: 600;
+            justify-content: center;
+            font-weight: bold;
         }
         
-        .faq-answer {
-            padding: 20px;
-            background-color: #fff;
-            display: none;
+        .new-profile-btn i {
+            margin-right: 5px;
         }
         
-        .faq-answer.active {
-            display: block;
-        }
-        
-        .faq-question:after {
-            content: '+';
-            font-size: 20px;
-            transition: var(--transition);
-        }
-        
-        .faq-question.active:after {
-            content: '-';
-        }
-        
-        .contact {
-            background-color: var(--secondary-color);
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .contact-info {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-        }
-        
-        .contact-info h3 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .contact-info h3:after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 2px;
-            background-color: var(--primary-color);
-            bottom: 0;
-            left: 0;
-        }
-        
-        .contact-info p {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .contact-info svg {
-            margin-right: 10px;
-            min-width: 24px;
-        }
-        
-        .contact-form {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
+        .plan-info {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 10px 20px;
+            padding: 15px;
             border-radius: 5px;
-            font-size: 16px;
-            transition: var(--transition);
         }
         
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-        
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-        
-        footer {
-            background-color: #333;
-            color: var(--text-white);
-            padding: 60px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 2px;
-            background-color: var(--primary-color);
-            bottom: 0;
-            left: 0;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 10px;
         }
         
-        .footer-column ul li a {
-            color: #ccc;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-column ul li a:hover {
-            color: var(--primary-color);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
+        .plan-label {
             font-size: 14px;
-            color: #ccc;
         }
         
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0 10px 10px;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .hero-badges {
-                flex-wrap: wrap;
-            }
-            
-            .step {
-                flex: 0 0 100%;
-                margin: 20px 0;
-            }
-            
-            .account-management-content,
-            .technology-content {
-                flex-direction: column;
-            }
-            
-            .account-management-image,
-            .account-management-text,
-            .technology-image,
-            .technology-text {
-                flex: 0 0 100%;
-            }
-            
-            .technology-features {
-                grid-template-columns: 1fr;
-            }
+        .renew-btn {
+            background-color: #ff7f50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .plan-details {
+            font-size: 12px;
+        }
+        
+        .plan-detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        /* 主内容区域样式 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* 顶部导航栏 */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .encryption-badge {
+            background-color: #2c3e50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .encryption-badge i {
+            margin-right: 5px;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification {
+            position: relative;
+            margin-right: 15px;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #4e54c8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        /* 工具栏 */
+        .toolbar {
+            display: flex;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .profile-tabs {
+            display: flex;
+            margin-right: 20px;
+        }
+        
+        .profile-tab {
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-right: 10px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .profile-tab.active {
+            background-color: #e0e0e0;
+        }
+        
+        .profile-tab i {
+            margin-right: 5px;
+        }
+        
+        .search-bar {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            padding: 0 10px;
+            margin-right: 20px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px;
+            outline: none;
+        }
+        
+        .search-bar i {
+            color: #777;
+        }
+        
+        .action-buttons {
+            display: flex;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-right: 10px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .action-btn i {
+            margin-right: 5px;
+        }
+        
+        /* 标签栏 */
+        .tabs-bar {
+            display: flex;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-right: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 12px;
+        }
+        
+        .tab.active {
+            background-color: #4e54c8;
+            color: white;
+        }
+        
+        /* 表格区域 */
+        .table-container {
+            flex: 1;
+            padding: 0 20px 20px;
+            background-color: white;
+            overflow: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            text-align: left;
+            padding: 12px 8px;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: normal;
+            color: #777;
+            font-size: 14px;
+        }
+        
+        td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .profile-name {
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            background-color: #4e54c8;
+            margin-right: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        
+        .start-btn {
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            background-color: #f0f0f0;
+            font-size: 12px;
+        }
+        
+        .platform-badge {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+        }
+        
+        .platform-badge img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+        
+        .proxy-info {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .flag-icon {
+            width: 16px;
+            height: 12px;
+            margin-right: 5px;
+        }
+        
+        /* 分页区域 */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .pagination-info {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .page-btn.active {
+            background-color: #4e54c8;
+            color: white;
+            border-color: #4e54c8;
+        }
+        
+        .per-page {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            font-size: 12px;
+        }
+        
+        .per-page select {
+            margin: 0 5px;
+            padding: 3px;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+        }
+        
+        .go-to {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            font-size: 12px;
+        }
+        
+        .go-to input {
+            width: 40px;
+            margin: 0 5px;
+            padding: 3px;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            text-align: center;
+        }
+        
+        .go-to button {
+            padding: 3px 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            background-color: #f0f0f0;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
+    <div class="container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
             <div class="logo">
-                <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="40" height="40" rx="8" fill="#fff"/>
-                    <path d="M10 20 L20 10 L30 20 L20 30 Z" fill="#1e88e5"/>
-                    <circle cx="20" cy="20" r="5" fill="#fff"/>
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
+                    <path d="M2 17L12 22L22 17" fill="white"/>
+                    <path d="M2 12L12 17L22 12" fill="white"/>
                 </svg>
-                MoreLogin
+                <span>MoreLogin</span>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#features">产品特点</a></li>
-                    <li><a href="#how-it-works">快速开始</a></li>
-                    <li><a href="#pricing">价格方案</a></li>
-                    <li><a href="#faq">常见问题</a></li>
-                    <li><a href="#contact">联系我们</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-text" style="flex: 1; text-align: left; padding-right: 40px;">
-                <h1 style="font-weight: 800; background: linear-gradient(135deg, #ffffff, #6ab7ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">MoreLogin帮您安全管理<span style="color: #6ab7ff;">多平台账号</span></h1>
-                <p style="color: rgba(255, 255, 255, 0.8); font-size: 22px; line-height: 1.6; margin-bottom: 30px;">我们为您提供专业的指纹浏览器解决方案，有效防止账号关联，规避平台风控，保护您的业务安全与在线隐私。</p>
-                <div class="hero-badges" style="justify-content: flex-start; margin-bottom: 35px;">
-                    <span class="badge" style="background: rgba(30, 136, 229, 0.15); border: 1px solid rgba(106, 183, 255, 0.3); backdrop-filter: blur(10px); padding: 8px 18px; font-weight: 600;">支持100+主流平台</span>
-                    <span class="badge" style="background: rgba(30, 136, 229, 0.15); border: 1px solid rgba(106, 183, 255, 0.3); backdrop-filter: blur(10px); padding: 8px 18px; font-weight: 600;">10万+用户信赖之选</span>
-                    <span class="badge" style="background: rgba(30, 136, 229, 0.15); border: 1px solid rgba(106, 183, 255, 0.3); backdrop-filter: blur(10px); padding: 8px 18px; font-weight: 600;">行业领先技术</span>
+            
+            <button class="new-profile-btn">
+                <span>+ New profile</span>
+            </button>
+            
+            <div class="sidebar-item">
+                <i>📦</i>
+                <span>Bulk import</span>
+            </div>
+            
+            <div class="sidebar-item">
+                <i>🔑</i>
+                <span>Purchase proxy</span>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="sidebar-item active">
+                    <i>👤</i>
+                    <span>Profile</span>
                 </div>
-                <div style="margin-top: 40px; display: flex; gap: 20px;">
-                    <a href="#" class="btn" style="background: linear-gradient(135deg, #1e88e5, #6ab7ff); border: none; box-shadow: 0 10px 20px rgba(30, 136, 229, 0.3); padding: 15px 35px; font-weight: 700; font-size: 16px; letter-spacing: 0.5px; transition: all 0.3s ease; transform: translateY(0);">立即注册</a>
-                    <a href="#" class="btn btn-outline" style="border: 2px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(5px); padding: 15px 35px; font-weight: 600; font-size: 16px; letter-spacing: 0.5px; transition: all 0.3s ease; transform: translateY(0);">了解更多</a>
+                <div class="sidebar-item">
+                    <i>🌐</i>
+                    <span>Proxies</span>
                 </div>
-                <div style="margin-top: 50px; display: flex; align-items: center; gap: 30px;">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="11" fill="none" stroke="#6ab7ff" stroke-width="2"/>
-                            <path d="M8 12 L11 15 L16 9" stroke="#6ab7ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span style="color: rgba(255, 255, 255, 0.8); font-size: 14px;">安全可靠</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="11" fill="none" stroke="#6ab7ff" stroke-width="2"/>
-                            <path d="M8 12 L11 15 L16 9" stroke="#6ab7ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span style="color: rgba(255, 255, 255, 0.8); font-size: 14px;">持续更新</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="11" fill="none" stroke="#6ab7ff" stroke-width="2"/>
-                            <path d="M8 12 L11 15 L16 9" stroke="#6ab7ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span style="color: rgba(255, 255, 255, 0.8); font-size: 14px;">7×24小时支持</span>
-                    </div>
+                <div class="sidebar-item">
+                    <i>☁️</i>
+                    <span>Cloud Phone</span>
+                </div>
+                <div class="sidebar-item">
+                    <i>🗑️</i>
+                    <span>Trash</span>
+                </div>
+                <div class="sidebar-item">
+                    <i>🧩</i>
+                    <span>Extensions & Apps</span>
+                </div>
+                <div class="sidebar-item">
+                    <i>🤖</i>
+                    <span>Automation</span>
+                </div>
+                <div class="sidebar-item">
+                    <i>👥</i>
+                    <span>Teams</span>
+                </div>
+                <div class="sidebar-item">
+                    <i>💰</i>
+                    <span>Billing</span>
+                </div>
+                <div class="sidebar-item">
+                    <i>🔄</i>
+                    <span>Referrals</span>
+                </div>
+                <div class="sidebar-item">
+                    <i>🤝</i>
+                    <span>Partner</span>
                 </div>
             </div>
             
-            <!-- 软件界面配图 -->
-            <div class="hero-image" style="flex: 1; position: relative;">
-                <div style="position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(106, 183, 255, 0.2), transparent 70%); animation: pulse 8s infinite alternate; z-index: 1;"></div>
-                <div style="position: absolute; top: -20px; right: -20px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at center, rgba(30, 136, 229, 0.2), transparent 70%); filter: blur(30px);"></div>
-                <div style="position: absolute; bottom: -30px; left: -30px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle at center, rgba(106, 183, 255, 0.15), transparent 70%); filter: blur(25px);"></div>
-                    <svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
-                        <!-- 软件主界面背景 -->
-                        <rect x="10" y="10" width="780" height="280" rx="10" fill="#f8f9fa" stroke="#ddd" stroke-width="2"/>
-                        
-                        <!-- 左侧导航栏 -->
-                        <rect x="10" y="10" width="200" height="280" rx="10" fill="#e9ecef" stroke="#ddd" stroke-width="2"/>
-                        
-                        <!-- 导航栏菜单项 -->
-                        <rect x="30" y="50" width="160" height="30" rx="5" fill="#1e88e5" opacity="0.8"/>
-                        <text x="50" y="70" font-family="Arial" font-size="12" fill="white">浏览器管理</text>
-                        
-                        <rect x="30" y="90" width="160" height="30" rx="5" fill="#fff" stroke="#ddd" stroke-width="1"/>
-                        <text x="50" y="110" font-family="Arial" font-size="12" fill="#333">代理设置</text>
-                        
-                        <rect x="30" y="130" width="160" height="30" rx="5" fill="#fff" stroke="#ddd" stroke-width="1"/>
-                        <text x="50" y="150" font-family="Arial" font-size="12" fill="#333">账号同步</text>
-                        
-                        <rect x="30" y="170" width="160" height="30" rx="5" fill="#fff" stroke="#ddd" stroke-width="1"/>
-                        <text x="50" y="190" font-family="Arial" font-size="12" fill="#333">团队协作</text>
-                        
-                        <!-- 主内容区域 -->
-                        <rect x="220" y="20" width="560" height="260" rx="5" fill="#fff" stroke="#ddd" stroke-width="1"/>
-                        
-                        <!-- 浏览器实例卡片 -->
-                        <rect x="240" y="60" width="160" height="180" rx="5" fill="#fff" stroke="#1e88e5" stroke-width="2"/>
-                        <rect x="240" y="60" width="160" height="30" rx="5" fill="#1e88e5"/>
-                        <text x="260" y="80" font-family="Arial" font-size="12" fill="white">电商账号 1</text>
-                        <circle cx="320" cy="150" r="40" fill="#e3f2fd"/>
-                        <text x="300" y="155" font-family="Arial" font-size="24" fill="#1e88e5">C</text>
-                        <rect x="270" y="200" width="100" height="25" rx="12.5" fill="#1e88e5"/>
-                        <text x="295" y="217" font-family="Arial" font-size="12" fill="white">启动</text>
-                        
-                        <rect x="420" y="60" width="160" height="180" rx="5" fill="#fff" stroke="#1e88e5" stroke-width="2"/>
-                        <rect x="420" y="60" width="160" height="30" rx="5" fill="#1e88e5"/>
-                        <text x="440" y="80" font-family="Arial" font-size="12" fill="white">社交账号 1</text>
-                        <circle cx="500" cy="150" r="40" fill="#e3f2fd"/>
-                        <text x="480" y="155" font-family="Arial" font-size="24" fill="#1e88e5">F</text>
-                        <rect x="450" y="200" width="100" height="25" rx="12.5" fill="#1e88e5"/>
-                        <text x="475" y="217" font-family="Arial" font-size="12" fill="white">启动</text>
-                        
-                        <rect x="600" y="60" width="160" height="180" rx="5" fill="#fff" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
-                        <circle cx="680" cy="150" r="30" stroke="#ddd" stroke-width="2" fill="none"/>
-                        <text x="675" y="155" font-family="Arial" font-size="24" fill="#ddd">+</text>
-                        <text x="640" y="200" font-family="Arial" font-size="12" fill="#666">添加新配置</text>
-                    </svg>
+            <div class="plan-info">
+                <div class="plan-header">
+                    <div class="plan-label">Plan</div>
+                    <button class="renew-btn">Renew</button>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="account-management" class="account-management">
-        <div class="container">
-            <div class="section-title">
-                <h2>安全管理所有账号，一个设备搞定</h2>
-                <p>我们的指纹浏览器让您轻松管理多个账号，无需担心被平台关联或封禁</p>
-            </div>
-            <div class="account-management-content">
-                <div class="account-management-image">
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='350' viewBox='0 0 500 350'><rect width='500' height='350' fill='%23f5f5f5'/><rect x='50' y='50' width='180' height='250' rx='10' fill='white' stroke='%231e88e5' stroke-width='2'/><rect x='270' y='50' width='180' height='250' rx='10' fill='white' stroke='%231e88e5' stroke-width='2'/><circle cx='140' cy='100' r='30' fill='%231e88e5' opacity='0.7'/><text x='140' y='105' font-family='Arial' font-size='14' text-anchor='middle' fill='white'>账号1</text><rect x='90' y='150' width='100' height='15' rx='3' fill='%23e0e0e0'/><rect x='90' y='175' width='100' height='15' rx='3' fill='%23e0e0e0'/><rect x='90' y='200' width='100' height='15' rx='3' fill='%23e0e0e0'/><rect x='90' y='225' width='60' height='25' rx='5' fill='%231e88e5'/><text x='120' y='242' font-family='Arial' font-size='12' text-anchor='middle' fill='white'>登录</text><circle cx='360' cy='100' r='30' fill='%231e88e5' opacity='0.7'/><text x='360' y='105' font-family='Arial' font-size='14' text-anchor='middle' fill='white'>账号2</text><rect x='310' y='150' width='100' height='15' rx='3' fill='%23e0e0e0'/><rect x='310' y='175' width='100' height='15' rx='3' fill='%23e0e0e0'/><rect x='310' y='200' width='100' height='15' rx='3' fill='%23e0e0e0'/><rect x='310' y='225' width='60' height='25' rx='5' fill='%231e88e5'/><text x='340' y='242' font-family='Arial' font-size='12' text-anchor='middle' fill='white'>登录</text><path d='M230 175 L270 175' stroke='%231e88e5' stroke-width='2' stroke-dasharray='5,5'/><circle cx='250' cy='175' r='20' fill='white' stroke='%231e88e5' stroke-width='2'/><text x='250' y='180' font-family='Arial' font-size='20' text-anchor='middle' fill='%231e88e5'>+</text></svg>" alt="多账号管理示意图">
-                </div>
-                <div class="account-management-text">
-                    <h3>为什么需要指纹浏览器？</h3>
-                    <p>在当今数字营销环境中，管理多个社交媒体、电商或广告平台账号已成为常态。然而，平台的反欺诈系统会通过浏览器指纹识别并关联您的多个账号，导致账号被限制甚至封禁。</p>
-                    <ul class="benefit-list">
-                        <li><span class="benefit-icon">✓</span> <strong>防止账号关联</strong> - 每个账号使用独立的浏览器环境，有效避免平台关联您的多个账号</li>
-                        <li><span class="benefit-icon">✓</span> <strong>规避风控系统</strong> - 模拟真实用户行为，降低被平台风控系统识别的风险</li>
-                        <li><span class="benefit-icon">✓</span> <strong>提高工作效率</strong> - 快速切换不同账号，无需多设备或反复登录退出</li>
-                        <li><span class="benefit-icon">✓</span> <strong>数据安全隔离</strong> - 不同账号之间的数据完全隔离，保护您的账号安全</li>
-                    </ul>
-                    <a href="#" class="btn">了解更多优势</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="technology" class="technology">
-        <div class="container">
-            <div class="section-title">
-                <h2>先进的指纹浏览器技术原理</h2>
-                <p>我们如何帮您完美模拟不同的浏览器环境，实现账号安全隔离</p>
-            </div>
-            <div class="technology-content">
-                <div class="technology-text">
-                    <h3>MoreLogin的核心技术</h3>
-                    <p>MoreLogin采用多层次的浏览器指纹模拟技术，通过修改和隔离关键的浏览器参数，为每个账号创建独特的数字身份。</p>
-                    <div class="technology-features">
-                        <div class="tech-feature">
-                            <div class="tech-icon">
-                                <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="30" height="30" rx="15" fill="#e3f2fd"/>
-                                    <path d="M8 15 L13 20 L22 10" stroke="#1e88e5" stroke-width="2" fill="none"/>
-                                </svg>
-                            </div>
-                            <div class="tech-info">
-                                <h4>Canvas指纹隔离</h4>
-                                <p>修改Canvas渲染参数，使每个浏览器实例生成独特的图形指纹</p>
-                            </div>
-                        </div>
-                        <div class="tech-feature">
-                            <div class="tech-icon">
-                                <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="30" height="30" rx="15" fill="#e3f2fd"/>
-                                    <path d="M8 15 L13 20 L22 10" stroke="#1e88e5" stroke-width="2" fill="none"/>
-                                </svg>
-                            </div>
-                            <div class="tech-info">
-                                <h4>WebRTC保护</h4>
-                                <p>防止WebRTC泄露真实IP地址，确保网络身份隔离</p>
-                            </div>
-                        </div>
-                        <div class="tech-feature">
-                            <div class="tech-icon">
-                                <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="30" height="30" rx="15" fill="#e3f2fd"/>
-                                    <path d="M8 15 L13 20 L22 10" stroke="#1e88e5" stroke-width="2" fill="none"/>
-                                </svg>
-                            </div>
-                            <div class="tech-info">
-                                <h4>浏览器环境模拟</h4>
-                                <p>精确模拟不同的操作系统、浏览器版本和硬件特征</p>
-                            </div>
-                        </div>
-                        <div class="tech-feature">
-                            <div class="tech-icon">
-                                <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="30" height="30" rx="15" fill="#e3f2fd"/>
-                                    <path d="M8 15 L13 20 L22 10" stroke="#1e88e5" stroke-width="2" fill="none"/>
-                                </svg>
-                            </div>
-                            <div class="tech-info">
-                                <h4>Cookie与存储隔离</h4>
-                                <p>完全隔离不同账号的Cookie、LocalStorage和IndexedDB数据</p>
-                            </div>
-                        </div>
+                <div class="plan-details">
+                    <div class="plan-detail-item">
+                        <span>Profiles:</span>
+                        <span>342/400</span>
                     </div>
-                </div>
-                <div class="technology-image">
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='400' viewBox='0 0 500 400'><rect width='500' height='400' fill='%23f5f5f5'/><circle cx='250' cy='200' r='150' fill='none' stroke='%231e88e5' stroke-width='2' stroke-dasharray='10,5'/><circle cx='250' cy='200' r='100' fill='none' stroke='%231e88e5' stroke-width='2'/><circle cx='250' cy='200' r='50' fill='%231e88e5' opacity='0.2'/><circle cx='250' cy='200' r='20' fill='%231e88e5'/><text x='250' y='205' font-family='Arial' font-size='12' text-anchor='middle' fill='white'>用户</text><circle cx='350' cy='150' r='30' fill='white' stroke='%231e88e5' stroke-width='2'/><text x='350' y='155' font-family='Arial' font-size='10' text-anchor='middle' fill='%231e88e5'>Canvas</text><circle cx='320' cy='280' r='30' fill='white' stroke='%231e88e5' stroke-width='2'/><text x='320' y='285' font-family='Arial' font-size='10' text-anchor='middle' fill='%231e88e5'>WebRTC</text><circle cx='180' cy='280' r='30' fill='white' stroke='%231e88e5' stroke-width='2'/><text x='180' y='285' font-family='Arial' font-size='10' text-anchor='middle' fill='%231e88e5'>Cookie</text><circle cx='150' cy='150' r='30' fill='white' stroke='%231e88e5' stroke-width='2'/><text x='150' y='155' font-family='Arial' font-size='10' text-anchor='middle' fill='%231e88e5'>浏览器</text><path d='M270 200 L330 160' stroke='%231e88e5' stroke-width='1'/><path d='M270 200 L310 270' stroke='%231e88e5' stroke-width='1'/><path d='M230 200 L190 270' stroke='%231e88e5' stroke-width='1'/><path d='M230 200 L170 160' stroke='%231e88e5' stroke-width='1'/></svg>" alt="指纹浏览器技术原理图">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>我们的核心优势</h2>
-                <p>MoreLogin为您提供全方位的指纹浏览器解决方案，让您的多账号管理更安全、更高效</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 2 L28 15 L15 28 L2 15 Z" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <circle cx="15" cy="15" r="5" fill="#1e88e5"/>
-                        </svg>
+                    <div class="plan-detail-item">
+                        <span>Members:</span>
+                        <span>9/12</span>
                     </div>
-                    <h3>数据安全</h3>
-                    <p>采用银行级加密技术保护您的账户数据，本地存储确保数据隐私，支持一键备份与恢复，让您的业务数据万无一失。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="5" width="20" height="20" rx="2" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <path d="M10 15 L14 19 L20 11" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <h3>支持云手机</h3>
-                    <p>独家支持云手机集成，让您的账号管理突破设备限制，随时随地远程操作，实现真正的多设备协同工作。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="15" cy="15" r="12" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <path d="M15 8 L15 15 L20 18" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <h3>真实画布指纹</h3>
-                    <p>采用业内领先的Canvas指纹技术，完美模拟真实用户浏览行为，有效规避各大平台的指纹识别系统，确保账号安全。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 5 L25 15 L15 25 L5 15 Z" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <circle cx="15" cy="15" r="3" fill="#1e88e5"/>
-                        </svg>
-                    </div>
-                    <h3>双核浏览器支持</h3>
-                    <p>同时支持Chrome和Firefox两大主流浏览器，满足不同平台和场景需求，让您的多账号管理更加灵活多变。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="8" width="20" height="14" rx="2" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <path d="M10 8 L10 5 L20 5 L20 8" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <circle cx="15" cy="15" r="3" fill="#1e88e5"/>
-                        </svg>
-                    </div>
-                    <h3>易用同步器</h3>
-                    <p>独创的账号同步技术，一键导入导出账号数据，跨设备无缝同步，比竞品更简单高效，大幅提升工作效率。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 15 L15 5 L25 15 L15 25 Z" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <path d="M10 15 L15 10 L20 15 L15 20 Z" fill="#1e88e5"/>
-                        </svg>
-                    </div>
-                    <h3>代理IP集成</h3>
-                    <p>内置多家代理服务商接口，支持静态IP、轮换IP和住宅IP，智能代理分配系统确保您的账号安全稳定运行。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="5" width="20" height="20" rx="2" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <path d="M10 15 L14 19 L20 11" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <h3>团队协作</h3>
-                    <p>支持多用户协作管理，精细的权限控制系统，操作日志记录，实时数据同步，让团队成员高效协作。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="15" cy="15" r="12" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <path d="M15 8 L15 15 L20 18" fill="none" stroke="#1e88e5" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <h3>API调用支持</h3>
-                    <p>提供完整的API接口文档，支持二次开发和系统集成，满足企业级用户的自动化和定制化需求。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 15 L15 5 L25 15 L15 25 Z" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <path d="M10 15 L15 10 L20 15 L15 20 Z" fill="#1e88e5"/>
-                        </svg>
-                    </div>
-                    <h3>优惠价格</h3>
-                    <p>灵活的价格方案满足不同需求，永久免费使用2个环境，性价比远超同类产品，为您的业务提供最具竞争力的解决方案。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="8" width="20" height="14" rx="2" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <path d="M10 8 L10 5 L20 5 L20 8" fill="none" stroke="#1e88e5" stroke-width="2"/>
-                            <circle cx="15" cy="15" r="3" fill="#1e88e5"/>
-                        </svg>
-                    </div>
-                    <h3>7/24客服支持</h3>
-                    <p>全天候专业客服团队，多渠道技术支持，快速响应您的问题和需求，让您的业务运营无后顾之忧。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" class="how-it-works" style="background: linear-gradient(135deg, #0d1117, #161b22);">
-        <div class="container">
-            <div class="section-title">
-                <h2 style="color: #fff; position: relative; display: inline-block;">
-                    快速开始
-                    <span style="position: absolute; bottom: -10px; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #1e88e5, transparent);"></span>
-                </h2>
-                <p style="color: rgba(255, 255, 255, 0.7);">我们是一个客户端软件，只需三步即可开始使用MoreLogin指纹浏览器</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: stretch; gap: 30px; margin-top: 50px; position: relative;">
-                <!-- 连接线 -->
-                <div style="position: absolute; top: 0; left: calc(16.67% + 25px); right: calc(16.67% + 25px); height: 2px; background: linear-gradient(90deg, rgba(30, 136, 229, 0.3), rgba(30, 136, 229, 0.8), rgba(30, 136, 229, 0.3)); top: -25px; z-index: 1;">
-                    <div style="position: absolute; width: 10px; height: 10px; background: #1e88e5; border-radius: 50%; left: 0; top: -4px; animation: flowLight 3s infinite linear;"></div>
-                </div>
-                <style>
-                    @keyframes flowLight {
-                        0% { left: 0; box-shadow: 0 0 5px #1e88e5; }
-                        100% { left: 100%; box-shadow: 0 0 20px #1e88e5; }
-                    }
-                    @keyframes pulse {
-                        0% { transform: scale(1); opacity: 1; }
-                        50% { transform: scale(1.05); opacity: 0.8; }
-                        100% { transform: scale(1); opacity: 1; }
-                    }
-                </style>
-                <div style="flex: 1; background: rgba(30, 136, 229, 0.05); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: 12px; padding: 30px; position: relative; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0, 0, 0, 0.2)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.1)';">
-                    <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; background: linear-gradient(135deg, #1e88e5, #6ab7ff); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);">
-                        <span style="color: white; font-weight: bold; font-size: 24px;">1</span>
-                    </div>
-                    <h3 style="color: #fff; text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 20px;">注册账户</h3>
-                    <p style="color: rgba(255, 255, 255, 0.7); text-align: center; font-size: 15px;">访问MoreLogin官网，填写必要信息并验证邮箱，完成账户注册</p>
-                    <div style="text-align: center; margin-top: 20px;">
-                        <a href="#" class="btn" style="background: linear-gradient(135deg, #1e88e5, #6ab7ff); border: none; box-shadow: 0 5px 15px rgba(30, 136, 229, 0.2); font-size: 14px; padding: 8px 20px;">立即注册</a>
-                    </div>
-                </div>
-                
-                <div style="flex: 1; background: rgba(30, 136, 229, 0.05); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: 12px; padding: 30px; position: relative; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0, 0, 0, 0.2)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.1)';">
-                    <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; background: linear-gradient(135deg, #1e88e5, #6ab7ff); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);">
-                        <span style="color: white; font-weight: bold; font-size: 24px;">2</span>
-                    </div>
-                    <h3 style="color: #fff; text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 20px;">下载软件</h3>
-                    <p style="color: rgba(255, 255, 255, 0.7); text-align: center; font-size: 15px;">选择适合您操作系统的MoreLogin客户端软件进行下载安装</p>
-                    <div style="text-align: center; margin-top: 20px; display: flex; justify-content: center; gap: 10px;">
-                        <a href="#" class="btn" style="background: linear-gradient(135deg, #1e88e5, #6ab7ff); border: none; box-shadow: 0 5px 15px rgba(30, 136, 229, 0.2); font-size: 14px; padding: 8px 20px; display: flex; align-items: center;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" style="margin-right: 5px;" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13z" fill="none" stroke="#fff" stroke-width="2"/>
-                                <path d="M7 12h10M12 7v10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            Windows
-                        </a>
-                        <a href="#" class="btn" style="background: linear-gradient(135deg, #1e88e5, #6ab7ff); border: none; box-shadow: 0 5px 15px rgba(30, 136, 229, 0.2); font-size: 14px; padding: 8px 20px; display: flex; align-items: center;">
-                            <svg width="16" height="16" viewBox="0 0 24 24" style="margin-right: 5px;" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 3c-4.971 0-9 4.029-9 9s4.029 9 9 9 9-4.029 9-9-4.029-9-9-9z" fill="none" stroke="#fff" stroke-width="2"/>
-                                <path d="M12 8v8M8 12h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            Mac OS
-                        </a>
-                    </div>
-                </div>
-                
-                <div style="flex: 1; background: rgba(30, 136, 229, 0.05); border: 1px solid rgba(30, 136, 229, 0.2); border-radius: 12px; padding: 30px; position: relative; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0, 0, 0, 0.2)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 10px 30px rgba(0, 0, 0, 0.1)';">
-                    <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; background: linear-gradient(135deg, #1e88e5, #6ab7ff); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(30, 136, 229, 0.3);">
-                        <span style="color: white; font-weight: bold; font-size: 24px;">3</span>
-                    </div>
-                    <h3 style="color: #fff; text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 20px;">开始使用</h3>
-                    <p style="color: rgba(255, 255, 255, 0.7); text-align: center; font-size: 15px;">安装完成后，打开MoreLogin客户端，使用您注册的账户登录，即可开始创建和管理您的多平台账号</p>
-                    <div style="text-align: center; margin-top: 20px;">
-                        <a href="#" class="btn" style="background: linear-gradient(135deg, #1e88e5, #6ab7ff); border: none; box-shadow: 0 5px 15px rgba(30, 136, 229, 0.2); font-size: 14px; padding: 8px 20px;">查看教程</a>
+                    <div class="plan-detail-item">
+                        <span>Remaining days:</span>
+                        <span>278</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section id="testimonials" class="features" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef);">
-        <div class="container">
-            <div class="section-title">
-                <h2 style="position: relative; display: inline-block;">用户评价
-                    <span style="position: absolute; bottom: -10px; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #1e88e5, transparent);"></span>
-                </h2>
-                <p>来自不同行业的用户对MoreLogin的真实评价</p>
-            </div>
-            <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
-                <!-- 电商行业用户 -->
-                <div class="feature-card" style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)';">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #1e88e5, #6ab7ff); display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                            <span style="color: white; font-weight: bold; font-size: 20px;">张</span>
-                        </div>
-                        <div>
-                            <h3 style="margin: 0; font-size: 18px;">电商卖家 - 张先生</h3>
-                            <div style="display: flex; margin-top: 5px;">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <p style="margin-top: 15px; color: #666;">"MoreLogin帮我解决了多账号管理的难题，现在我可以轻松管理10多个电商平台账号，大大提高了工作效率，再也不用担心账号被关联封禁了。"</p>
-                </div>
-                
-                <!-- 社交媒体用户 -->
-                <div class="feature-card" style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)';">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #1e88e5, #6ab7ff); display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                            <span style="color: white; font-weight: bold; font-size: 20px;">李</span>
-                        </div>
-                        <div>
-                            <h3 style="margin: 0; font-size: 18px;">社交媒体运营 - 李女士</h3>
-                            <div style="display: flex; margin-top: 5px;">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <p style="margin-top: 15px; color: #666;">"作为社交媒体运营，我需要管理多个平台的账号，MoreLogin的指纹浏览器让我能够安全地切换不同账号，避免了平台的风控机制，真的非常实用！"</p>
-                </div>
-                
-                <!-- 营销团队用户 -->
-                <div class="feature-card" style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)';this.style.boxShadow='0 15px 30px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 10px 20px rgba(0,0,0,0.05)';">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #1e88e5, #6ab7ff); display: flex; align-items: center; justify-content: center; margin-right: 15px;">
-                            <span style="color: white; font-weight: bold; font-size: 20px;">王</span>
-                        </div>
-                        <div>
-                            <h3 style="margin: 0; font-size: 18px;">营销总监 - 王先生</h3>
-                            <div style="display: flex; margin-top: 5px;">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffc107" xmlns="http://www.w3.org/2000/svg" style="margin-right: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <p style="margin-top: 15px; color: #666;">"我们团队使用MoreLogin管理多个客户的营销账号，团队协作功能非常强大，让我们能够安全地共享账号访问权限，同时保持每个账号的独立性。"</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>价格方案</h2>
-                <p>我们提供灵活的价格方案，满足不同规模企业和个人的需求</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3>基础版</h3>
-                    <div class="price">¥99<span>/月</span></div>
-                    <ul class="pricing-features">
-                        <li>10个浏览器配置</li>
-                        <li>基础指纹管理</li>
-                        <li>手动代理设置</li>
-                        <li>基础账户管理</li>
-                        <li>邮件支持</li>
-                        <li>单用户授权</li>
-                    </ul>
-                    <a href="#" class="btn">立即购买</a>
-                </div>
-                <div class="pricing-card popular">
-                    <h3>专业版</h3>
-                    <div class="price">¥299<span>/月</span></div>
-                    <ul class="pricing-features">
-                        <li>50个浏览器配置</li>
-                        <li>高级指纹管理</li>
-                        <li>代理API集成</li>
-                        <li>自动化功能</li>
-                        <li>优先技术支持</li>
-                        <li>3用户授权</li>
-                    </ul>
-                    <a href="#" class="btn">立即购买</a>
-                </div>
-                <div class="pricing-card">
-                    <h3>企业版</h3>
-                    <div class="price">¥999<span>/月</span></div>
-                    <ul class="pricing-features">
-                        <li>无限浏览器配置</li>
-                        <li>企业级指纹管理</li>
-                        <li>高级代理设置</li>
-                        <li>团队协作功能</li>
-                        <li>24/7专属支持</li>
-                        <li>10+用户授权</li>
-                    </ul>
-                    <a href="#" class="btn">联系销售</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="faq">
-        <div class="container">
-            <div class="section-title">
-                <h2>常见问题</h2>
-                <p>关于MoreLogin指纹浏览器的常见问题解答</p>
-            </div>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">什么是指纹浏览器？为什么我需要它？</div>
-                    <div class="faq-answer">
-                        <p>指纹浏览器是一种能够修改和管理浏览器指纹的专业工具。浏览器指纹是网站用来识别和追踪用户的一组数据，包括操作系统、浏览器类型、屏幕分辨率、已安装插件等信息。</p>
-                        <p>如果您需要管理多个社交媒体或电商平台账户，普通浏览器会因为指纹相同而导致账户被关联甚至封禁。MoreLogin指纹浏览器可以为每个账户创建独立的浏览器环境，有效防止账户关联，保护您的业务安全。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">MoreLogin与其他指纹浏览器相比有什么优势？</div>
-                    <div class="faq-answer">
-                        <p>MoreLogin的主要优势包括：</p>
-                        <ul style="padding-left: 20px;">
-                            <li>更精准的指纹模拟技术，能够更好地规避平台的反欺诈检测</li>
-                            <li>更友好的用户界面和更简单的操作流程，降低学习成本</li>
-                            <li>更强大的团队协作功能，适合多人协同工作</li>
-                            <li>更完善的自动化功能，提高工作效率</li>
-                            <li>更全面的代理IP集成，支持多种代理服务商</li>
-                            <li>更专业的技术支持和培训服务</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">MoreLogin支持哪些操作系统？</div>
-                    <div class="faq-answer">
-                        <p>MoreLogin指纹浏览器目前支持Windows、macOS和Linux操作系统。我们提供针对不同系统优化的客户端软件，确保在各种环境下都能获得最佳性能。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">如何设置代理IP？</div>
-                    <div class="faq-answer">
-                        <p>MoreLogin支持多种代理设置方式：</p>
-                        <ol style="padding-left: 20px;">
-                            <li><strong>手动设置</strong>：您可以在创建或编辑浏览器配置时，手动输入代理服务器地址、端口、用户名和密码。</li>
-                            <li><strong>API集成</strong>：我们内置了多家主流代理服务商的API接口，您可以直接在软件中选择服务商并授权，系统会自动获取和管理代理IP。</li>
-                            <li><strong>批量导入</strong>：如果您有大量代理IP，可以通过CSV文件批量导入。</li>
-                            <li><strong>代理轮换</strong>：您可以设置代理自动轮换规则，如按时间、按会话或按操作次数轮换。</li>
-                        </ol>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">MoreLogin的浏览器指纹有多安全？</div>
-                    <div class="faq-answer">
-                        <p>MoreLogin采用业内领先的指纹模拟技术，能够全面模拟真实用户的浏览器环境，包括但不限于：</p>
-                        <ul style="padding-left: 20px;">
-                            <li>Canvas指纹</li>
-                            <li>WebGL指纹</li>
-                            <li>音频指纹</li>
-                            <li>字体指纹</li>
-                            <li>WebRTC</li>
-                            <li>时区和语言设置</li>
-                            <li>硬件信息</li>
-                            <li>浏览器插件和扩展</li>
-                        </ul>
-                        <p>我们的技术团队持续监控各大平台的反欺诈机制更新，及时优化我们的指纹模拟算法，确保您的账户安全。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">如何管理多个账户？</div>
-                    <div class="faq-answer">
-                        <p>MoreLogin提供多种账户管理功能：</p>
-                        <ul style="padding-left: 20px;">
-                            <li><strong>分组管理</strong>：您可以创建不同的分组，如按平台、按业务类型或按团队成员分组。</li>
-                            <li><strong>标签系统</strong>：为每个浏览器配置添加自定义标签，方便快速筛选和查找。</li>
-                            <li><strong>批量操作</strong>：支持批量启动、停止、导入、导出和更新浏览器配置。</li>
-                            <li><strong>账户状态监控</strong>：实时监控账户登录状态、活动情况和异常警报。</li>
-                            <li><strong>数据同步</strong>：在多台设备间同步您的账户数据和浏览器配置。</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">是否提供免费试用？</div>
-                    <div class="faq-answer">
-                        <p>是的，我们提供7天免费试用，您可以在官网注册账户后立即开始试用。试用期间，您可以体验所有专业版功能，包括10个浏览器配置额度。</p>
-                        <p>试用期结束后，您可以选择升级到付费版本继续使用，或者转为免费版（限制为2个浏览器配置）。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">如何获取技术支持？</div>
-                    <div class="faq-answer">
-                        <p>我们提供多种技术支持渠道：</p>
-                        <ul style="padding-left: 20px;">
-                            <li><strong>在线客服</strong>：工作日9:00-18:00提供实时在线客服支持。</li>
-                            <li><strong>邮件支持</strong>：您可以发送邮件至support@morelogin.com，我们会在24小时内回复。</li>
-                            <li><strong>知识库</strong>：我们的官网提供详细的使用教程、常见问题解答和最佳实践指南。</li>
-                            <li><strong>视频教程</strong>：YouTube和哔哩哔哩平台上有我们制作的详细视频教程。</li>
-                            <li><strong>专属客户经理</strong>：企业版用户将获得专属客户经理的一对一服务。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>联系我们</h2>
-                <p>如果您有任何问题或需求，请随时与我们联系</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>联系方式</h3>
-                    <p>
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#1e88e5"/>
-                        </svg>
-                        北京市海淀区中关村科技园区
-                    </p>
-                    <p>
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#1e88e5"/>
-                        </svg>
-                        contact@morelogin.com
-                    </p>
-                    <p>
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#1e88e5"/>
-                        </svg>
-                        400-123-4567
-                    </p>
-                    <p>
-                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-6h2v6zm4 0h-2V9h2v7z" fill="#1e88e5"/>
-                        </svg>
-                        工作日 9:00-18:00
-                    </p>
-                </div>
-                <div class="contact-form">
-                    <h3>发送消息</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="name">姓名</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">邮箱</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">主题</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">消息</label>
-                            <textarea id="message" name="message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">发送消息</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>关于我们</h3>
-                    <p style="color: #ccc; margin-bottom: 15px;">MoreLogin是一家专注于浏览器指纹技术和多账户管理解决方案的科技公司，致力于为数字营销人员提供安全、高效的工具。</p>
-                </div>
-                <div class="footer-column">
-                    <h3>快速链接</h3>
-                    <ul>
-                        <li><a href="#features">产品特点</a></li>
-                        <li><a href="#how-it-works">快速开始</a></li>
-                        <li><a href="#pricing">价格方案</a></li>
-                        <li><a href="#faq">常见问题</a></li>
-                        <li><a href="#contact">联系我们</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>资源中心</h3>
-                    <ul>
-                        <li><a href="#">使用教程</a></li>
-                        <li><a href="#">API文档</a></li>
-                        <li><a href="#">最佳实践</a></li>
-                        <li><a href="#">博客文章</a></li>
-                        <li><a href="#">视频教程</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>法律信息</h3>
-                    <ul>
-                        <li><a href="#">服务条款</a></li>
-                        <li><a href="#">隐私政策</a></li>
-                        <li><a href="#">退款政策</a></li>
-                        <li><a href="#">Cookie政策</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 MoreLogin. 保留所有权利。</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // FAQ手风琴效果
-        document.addEventListener('DOMContentLoaded', function() {
-            const faqQuestions = document.querySelectorAll('.faq-question');
-            
-            faqQuestions.forEach(question => {
-                question.addEventListener('click', function() {
-                    // 切换当前问题的活动状态
-                    this.classList.toggle('active');
-                    const answer = this.nextElementSibling;
-                    
-                    // 如果当前回答是隐藏的，显示它
-                    if (answer.style.display === 'block') {
-                        answer.style.display = 'none';
-                    } else {
-                        answer.style.display = 'block';
-                    }
-                });
-            });
-            
-            // 默认显示第一个FAQ
-            if (faqQuestions.length > 0) {
-                faqQuestions[0].classList.add('active');
-                faqQuestions[0].nextElementSibling.style.display = 'block';
-            }
-        });
         
-        // 平滑滚动效果
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 顶部导航栏 -->
+            <div class="top-bar">
+                <div class="encryption-badge">
+                    <i>🔒</i>
+                    <span>Unique "end-to-end encryption"</span>
+                </div>
                 
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                <div class="user-menu">
+                    <div class="notification">
+                        <i>🔔</i>
+                        <div class="notification-badge">1</div>
+                    </div>
+                    <div class="user-avatar">U</div>
+                    <span>marketing</span>
+                    <i>▼</i>
+                </div>
+            </div>
+            
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <div class="profile-tabs">
+                    <div class="profile-tab active">
+                        <i>🌐</i>
+                        <span>Browser profile</span>
+                    </div>
+                    <div class="profile-tab">
+                        <i>📱</i>
+                        <span>Cloud Phone profile</span>
+                    </div>
+                </div>
                 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+                <div class="search-bar">
+                    <i>🔍</i>
+                    <input type="text" placeholder="Search">
+                </div>
+                
+                <div class="action-buttons">
+                    <div class="action-btn">
+                        <i>🔍</i>
+                        <span>Filters</span>
+                    </div>
+                    <div class="action-btn">
+                        <i>👥</i>
+                        <span>Groups</span>
+                    </div>
+                    <div class="action-btn">
+                        <i>🔖</i>
+                        <span>Bookmarks</span>
+                    </div>
+                    <div class="action-btn">
+                        <i>🔌</i>
+                        <span>API</span>
+                    </div>
+                    <div class="action-btn">
+                        <i>🔄</i>
+                        <span>Synchronizer</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 标签栏 -->
+            <div class="tabs-bar">
+                <div class="tab active">Group</div>
+                <div class="tab">SEO</div>
+                <div class="tab">ru team</div>
+                <div class="tab">测试Android12</div>
+                <div class="tab">BD号</div>
+                <div class="tab">Twitter官号</div>
+                <div class="tab">免费Twitter文案</div>
+                <div class="tab">盗号Twitter文案</div>
+                <div class="tab">Twitter官编中文区</div>
+                <div class="tab">Twitter</div>
+                <div class="tab">Quora</div>
+            </div>
+            
+            <!-- 表格区域 -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><div class="checkbox"></div></th>
+                            <th>Numerical order ▼</th>
+                            <th>Profile name ▼</th>
+                            <th>Action</th>
+                            <th>Status</th>
+                            <th>Accounts</th>
+                            <th>Proxy information</th>
+                            <th>Notes</th>
+                            <th>⚙️</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="checkbox"></div></td>
+                            <td>327</td>
+                            <td>
+                                <div class="profile-name">
+                                    <div class="profile-icon">P</div>
+                                    P-3270
+                                </div>
+                            </td>
+                            <td><button class="start-btn">Start</button></td>
+                            <td><div class="status-badge">Ready</div></td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>⋮</td>
+                        </tr>
+                        <tr>
+                            <td><div class="checkbox"></div></td>
+                            <td>326</td>
+                            <td>
+                                <div class="profile-name">
+                                    <div class="profile-icon">P</div>
+                                    P-3266
+                                </div>
+                            </td>
+                            <td><button class="start-btn">Start</button></td>
+                            <td><div class="status-badge">Ready</div></td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>⋮</td>
+                        </tr>
+                        <tr>
+                            <td><div class="checkbox"></div></td>
+                            <td>325</td>
+                            <td>
+                                <div class="profile-name">
+                                    <div class="profile-icon">P</div>
+                                    P-325
+                                </div>
+                            </td>
+                            <td><button class="start-btn">Start</button></td>
+                            <td><div class="status-badge">Ready</div></td>
+                            <td>
+                                <div class="platform-badge">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABEElEQVR4nGNgGFTAz89P1M/P7xOQfubn5yfKwMCwn4GBgZmBgYGFgYFhPhD/B+L/UPwfKs7CwMAwH6jGHqjmPwMDw3+g+H8g/g/Vsx+ohhmoRwiIvwDxfyD+j4T/A/EXIBYD4v1A/B+qBh3/B+L9QCzGAMRCQHwBiP8TwBeAWAiIhYH4IxD/JwB/BGIRIBYCYhECeD8QCwHxBSL0XwBiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8gQv9/IBYC4gtE6P8PxEJAfIEI/f+BWAiILxCh/z8QCwHxBSL0/wdiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8gQv9/qJr9AEgwI4w1VrPBAAAAAElFTkSuQmCC" alt="YouTube">
+                                    youtube
+                                </div>
+                            </td>
+                            <td>
+                                <div class="proxy-info">
+                                    <div>socks5://38.84.26.216:9050</div>
+                                    <div>
+                                        <img class="flag-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAYAAAB24g05AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA50lEQVQokZXSPUpDQRTF8Z8mEkihYBVIo4VgYSFYiYWFjY1gG8HKRjuxdQEuwEoQC1dgI1gJFoKFIFiIhSAEJITkWdwJPh4v5MDBYe7M/8y9M5fRUmrjCpd4wDu+8IkJXnCPO4xwgTYWGpzkOMYhNrGMBXzjDVOUWMQK1rCJHg6wh2200FQdXOMZQzxhgBc84xtVnOESJ9hBB+vYwCqWqgQnuMUdBnisBtdVTFDgHefooosttLGEZpZzjFHgFa94wD0G1eBpNXiEU+yhj23kWK0S1HGGPm7wWCWYBjFBgQJjTKqYfwANTDQxDPcw1gAAAABJRU5ErkJggg==" alt="US Flag">
+                                        US,Private Proxy
+                                    </div>
+                                </div>
+                            </td>
+                            <td>--</td>
+                            <td>⋮</td>
+                        </tr>
+                        <tr>
+                            <td><div class="checkbox"></div></td>
+                            <td>324</td>
+                            <td>
+                                <div class="profile-name">
+                                    <div class="profile-icon">P</div>
+                                    P-324
+                                </div>
+                            </td>
+                            <td><button class="start-btn">Start</button></td>
+                            <td><div class="status-badge">Ready</div></td>
+                            <td>
+                                <div class="platform-badge">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABEElEQVR4nGNgGFTAz89P1M/P7xOQfubn5yfKwMCwn4GBgZmBgYGFgYFhPhD/B+L/UPwfKs7CwMAwH6jGHqjmPwMDw3+g+H8g/g/Vsx+ohhmoRwiIvwDxfyD+j4T/A/EXIBYD4v1A/B+qBh3/B+L9QCzGAMRCQHwBiP8TwBeAWAiIhYH4IxD/JwB/BGIRIBYCYhECeD8QCwHxBSL0XwBiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8gQv9/IBYC4gtE6P8PxEJAfIEI/f+BWAiILxCh/z8QCwHxBSL0/wdiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8gQv9/qJr9AEgwI4w1VrPBAAAAAElFTkSuQmCC" alt="YouTube">
+                                    youtube
+                                </div>
+                            </td>
+                            <td>
+                                <div class="proxy-info">
+                                    <div>socks5://38.109.83.25:9050</div>
+                                    <div>
+                                        <img class="flag-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAYAAAB24g05AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA50lEQVQokZXSPUpDQRTF8Z8mEkihYBVIo4VgYSFYiYWFjY1gG8HKRjuxdQEuwEoQC1dgI1gJFoKFIFiIhSAEJITkWdwJPh4v5MDBYe7M/8y9M5fRUmrjCpd4wDu+8IkJXnCPO4xwgTYWGpzkOMYhNrGMBXzjDVOUWMQK1rCJHg6wh2200FQdXOMZQzxhgBc84xtVnOESJ9hBB+vYwCqWqgQnuMUdBnisBtdVTFDgHefooosttLGEZpZzjFHgFa94wD0G1eBpNXiEU+yhj23kWK0S1HGGPm7wWCWYBjFBgQJjTKqYfwANTDQxDPcw1gAAAABJRU5ErkJggg==" alt="US Flag">
+                                        US,Private Proxy
+                                    </div>
+                                </div>
+                            </td>
+                            <td>--</td>
+                            <td>⋮</td>
+                        </tr>
+                        <tr>
+                            <td><div class="checkbox"></div></td>
+                            <td>323</td>
+                            <td>
+                                <div class="profile-name">
+                                    <div class="profile-icon">P</div>
+                                    P-323
+                                </div>
+                            </td>
+                            <td><button class="start-btn">Start</button></td>
+                            <td><div class="status-badge">Ready</div></td>
+                            <td>
+                                <div class="platform-badge">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABEElEQVR4nGNgGFTAz89P1M/P7xOQfubn5yfKwMCwn4GBgZmBgYGFgYFhPhD/B+L/UPwfKs7CwMAwH6jGHqjmPwMDw3+g+H8g/g/Vsx+ohhmoRwiIvwDxfyD+j4T/A/EXIBYD4v1A/B+qBh3/B+L9QCzGAMRCQHwBiP8TwBeAWAiIhYH4IxD/JwB/BGIRIBYCYhECeD8QCwHxBSL0XwBiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8g
