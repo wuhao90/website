@@ -1,755 +1,648 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoreLogin | V2.31.0</title>
+    <title>June Reward Modal Designs</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-        
+
         body {
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            display: flex;
-            height: 100vh;
-        }
-        
-        /* 侧边栏样式 */
-        .sidebar {
-            width: 200px;
-            background: linear-gradient(180deg, #4e54c8, #6a6fd8);
-            color: white;
-            padding: 20px 0;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            padding: 0 20px 20px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        
-        .logo img {
-            width: 30px;
-            margin-right: 10px;
-        }
-        
-        .sidebar-menu {
-            flex: 1;
-        }
-        
-        .sidebar-item {
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .sidebar-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .sidebar-item.active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .sidebar-item i {
-            margin-right: 10px;
-            font-size: 16px;
-        }
-        
-        .new-profile-btn {
-            background-color: white;
-            color: #4e54c8;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            margin: 20px;
-            cursor: pointer;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-        }
-        
-        .new-profile-btn i {
-            margin-right: 5px;
-        }
-        
-        .plan-info {
-            background-color: rgba(255, 255, 255, 0.1);
-            margin: 10px 20px;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        
-        .plan-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .plan-label {
-            font-size: 14px;
-        }
-        
-        .renew-btn {
-            background-color: #ff7f50;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            padding: 2px 8px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-        
-        .plan-details {
-            font-size: 12px;
-        }
-        
-        .plan-detail-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-        
-        /* 主内容区域样式 */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        
-        /* 顶部导航栏 */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: white;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .encryption-badge {
-            background-color: #2c3e50;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .encryption-badge i {
-            margin-right: 5px;
-        }
-        
-        .user-menu {
-            display: flex;
-            align-items: center;
-        }
-        
-        .notification {
-            position: relative;
-            margin-right: 15px;
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .user-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: #4e54c8;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-        }
-        
-        /* 工具栏 */
-        .toolbar {
-            display: flex;
-            padding: 10px 20px;
-            background-color: white;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        
-        .profile-tabs {
-            display: flex;
-            margin-right: 20px;
-        }
-        
-        .profile-tab {
-            padding: 8px 15px;
-            border-radius: 5px;
-            margin-right: 10px;
-            background-color: #f0f0f0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-        }
-        
-        .profile-tab.active {
-            background-color: #e0e0e0;
-        }
-        
-        .profile-tab i {
-            margin-right: 5px;
-        }
-        
-        .search-bar {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            padding: 0 10px;
-            margin-right: 20px;
-        }
-        
-        .search-bar input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            padding: 8px;
-            outline: none;
-        }
-        
-        .search-bar i {
-            color: #777;
-        }
-        
-        .action-buttons {
-            display: flex;
-        }
-        
-        .action-btn {
-            padding: 8px 15px;
-            border-radius: 5px;
-            margin-right: 10px;
-            background-color: #f0f0f0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-        }
-        
-        .action-btn i {
-            margin-right: 5px;
-        }
-        
-        /* 标签栏 */
-        .tabs-bar {
-            display: flex;
-            padding: 10px 20px;
-            background-color: white;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 20px;
             overflow-x: auto;
         }
-        
-        .tab {
-            padding: 5px 10px;
-            border-radius: 3px;
-            margin-right: 5px;
-            background-color: #f0f0f0;
-            cursor: pointer;
-            white-space: nowrap;
-            font-size: 12px;
-        }
-        
-        .tab.active {
-            background-color: #4e54c8;
-            color: white;
-        }
-        
-        /* 表格区域 */
-        .table-container {
-            flex: 1;
-            padding: 0 20px 20px;
-            background-color: white;
-            overflow: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th {
-            text-align: left;
-            padding: 12px 8px;
-            border-bottom: 1px solid #e0e0e0;
-            font-weight: normal;
-            color: #777;
-            font-size: 14px;
-        }
-        
-        td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 14px;
-        }
-        
-        .checkbox {
-            width: 18px;
-            height: 18px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .profile-name {
+
+        .container {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            max-width: 1400px;
+            width: 100%;
         }
-        
-        .profile-icon {
-            width: 20px;
-            height: 20px;
+
+        .modal-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 800px;
+            max-width: 800px;
+        }
+
+        .modal-title {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .modal {
+            width: 800px;
+            height: 600px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            transform: scale(0.95);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .modal:hover {
+            transform: scale(1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+        }
+
+        /* Design 1: Gradient Burst - Enhanced Activity Feel */
+        .modal-1 {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b, #ff6b35, #ffa726);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-1::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundFloat 6s ease-in-out infinite;
+        }
+
+        .modal-1::after {
+            content: '🎉';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 40px;
+            animation: celebrate 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .modal-1 .header {
+            padding: 40px 30px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-1 .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s linear infinite;
+        }
+
+        .modal-1 .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: #ff416c;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: badgeBounce 2s ease-in-out infinite;
+        }
+
+        .modal-1 .title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #ffffff, #ffeaa7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-1 .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .modal-1 .content {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95));
+            color: #333;
+            display: flex;
+            gap: 30px;
+            align-items: stretch;
+            height: calc(100% - 180px);
+            position: relative;
+        }
+
+        .modal-1 .content::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
             border-radius: 3px;
-            background-color: #4e54c8;
-            margin-right: 5px;
+        }
+
+        .modal-1 .option {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .modal-1 .option:first-child {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .modal-1 .option:last-child {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .modal-1 .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .modal-1 .option:hover::before {
+            left: 100%;
+        }
+
+        .modal-1 .option:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .modal-1 .option::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-1 .option-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .modal-1 .option:nth-child(1) .option-icon {
+            animation-delay: 0s;
+        }
+
+        .modal-1 .option:nth-child(2) .option-icon {
+            animation-delay: 1.5s;
+        }
+
+        /* Design 2: Neon Glow */
+        .modal-2 {
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            color: white;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .modal-2 .header {
+            padding: 25px 20px 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .modal-2 .badge {
+            display: inline-block;
+            background: #00ffff;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .modal-2 .title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .modal-2 .content {
+            padding: 20px;
+        }
+
+        .modal-2 .option {
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-2 .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 0, 255, 0.4);
+        }
+
+        /* Design 3: Golden Luxury */
+        .modal-3 {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+            border: 2px solid #ffd700;
+        }
+
+        .modal-3 .header {
+            padding: 25px 20px 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #1a1a1a;
+            position: relative;
+        }
+
+        .modal-3 .header::before {
+            content: '💰';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            animation: bounce 2s infinite;
+        }
+
+        .modal-3 .badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            color: #1a1a1a;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border: 1px solid #ffd700;
+        }
+
+        .modal-3 .title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .modal-3 .content {
+            padding: 20px;
+        }
+
+        .modal-3 .option {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #1a1a1a;
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .modal-3 .option:hover {
+            transform: translateY(-2px);
+            border-color: #ffd700;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Design 4: Vibrant Pop */
+        .modal-4 {
+            background: white;
+            border: 3px solid #ff6b6b;
+        }
+
+        .modal-4 .header {
+            padding: 25px 20px 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            position: relative;
+        }
+
+        .modal-4 .header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #4ecdc4;
+        }
+
+        .modal-4 .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .modal-4 .title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .modal-4 .content {
+            padding: 20px;
+            color: #333;
+        }
+
+        .modal-4 .option {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: perspective(1000px) rotateX(0deg);
+        }
+
+        .modal-4 .option:hover {
+            transform: perspective(1000px) rotateX(5deg) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Common Styles */
+        .option-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 12px;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        
-        .start-btn {
-            background-color: #f0f0f0;
+
+        .option-reward {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #ffffff, #ffeaa7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .option-desc {
+            font-size: 14px;
+            opacity: 0.95;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
             border: none;
-            border-radius: 3px;
-            padding: 5px 15px;
-            cursor: pointer;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 3px;
-            background-color: #f0f0f0;
-            font-size: 12px;
-        }
-        
-        .platform-badge {
-            display: flex;
-            align-items: center;
-            font-size: 12px;
-        }
-        
-        .platform-badge img {
-            width: 16px;
-            height: 16px;
-            margin-right: 5px;
-        }
-        
-        .proxy-info {
-            font-size: 12px;
-            color: #777;
-        }
-        
-        .flag-icon {
-            width: 16px;
-            height: 12px;
-            margin-right: 5px;
-        }
-        
-        /* 分页区域 */
-        .pagination {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: white;
-            border-top: 1px solid #e0e0e0;
-        }
-        
-        .pagination-info {
-            font-size: 12px;
-            color: #777;
-        }
-        
-        .pagination-controls {
-            display: flex;
-            align-items: center;
-        }
-        
-        .page-btn {
+            color: white;
+            font-size: 20px;
             width: 30px;
             height: 30px;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 2px;
-            cursor: pointer;
-            font-size: 12px;
+            transition: all 0.3s ease;
         }
-        
-        .page-btn.active {
-            background-color: #4e54c8;
-            color: white;
-            border-color: #4e54c8;
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
         }
-        
-        .per-page {
-            display: flex;
-            align-items: center;
-            margin-left: 20px;
-            font-size: 12px;
+
+        /* Animations */
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-20px, -20px) rotate(90deg); }
+            50% { transform: translate(20px, -10px) rotate(180deg); }
+            75% { transform: translate(-10px, 20px) rotate(270deg); }
         }
-        
-        .per-page select {
-            margin: 0 5px;
-            padding: 3px;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
+
+        @keyframes celebrate {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(-15deg); }
+            50% { transform: translateY(-5px) rotate(15deg); }
+            75% { transform: translateY(-8px) rotate(-10deg); }
         }
-        
-        .go-to {
-            display: flex;
-            align-items: center;
-            margin-left: 20px;
-            font-size: 12px;
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
-        
-        .go-to input {
-            width: 40px;
-            margin: 0 5px;
-            padding: 3px;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            text-align: center;
+
+        @keyframes badgeBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.05); }
         }
-        
-        .go-to button {
-            padding: 3px 8px;
-            border: 1px solid #e0e0e0;
-            border-radius: 3px;
-            background-color: #f0f0f0;
-            cursor: pointer;
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #00ffff; }
+            to { box-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px) scale(0.8); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .modal {
+                width: 90vw;
+                height: auto;
+                min-height: 500px;
+            }
+
+            .modal-1 .content {
+                flex-direction: column;
+                height: auto;
+                gap: 20px;
+            }
+
+            .modal-1 .option {
+                padding: 25px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+            
+            .modal {
+                width: 95vw;
+                max-width: 400px;
+                height: auto;
+            }
+
+            .modal-1 .header {
+                padding: 30px 20px 15px;
+            }
+
+            .modal-1 .title {
+                font-size: 24px;
+            }
+
+            .modal-1 .content {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 侧边栏 -->
-        <div class="sidebar">
-            <div class="logo">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
-                    <path d="M2 17L12 22L22 17" fill="white"/>
-                    <path d="M2 12L12 17L22 12" fill="white"/>
-                </svg>
-                <span>MoreLogin</span>
-            </div>
-            
-            <button class="new-profile-btn">
-                <span>+ New profile</span>
-            </button>
-            
-            <div class="sidebar-item">
-                <i>📦</i>
-                <span>Bulk import</span>
-            </div>
-            
-            <div class="sidebar-item">
-                <i>🔑</i>
-                <span>Purchase proxy</span>
-            </div>
-            
-            <div class="sidebar-menu">
-                <div class="sidebar-item active">
-                    <i>👤</i>
-                    <span>Profile</span>
+        <!-- Design 1: Enhanced Gradient Burst - Activity Style -->
+        <div class="modal-wrapper">
+            <div class="modal-title">Enhanced June Rewards - Activity Style</div>
+            <div class="modal modal-1">
+                <div class="header">
+                    <button class="close-btn">×</button>
+                    <div class="badge">Double Rewards</div>
+                    <div class="title">June Invite Rewards</div>
+                    <div class="subtitle">Limited Time Mega Event!</div>
                 </div>
-                <div class="sidebar-item">
-                    <i>🌐</i>
-                    <span>Proxies</span>
-                </div>
-                <div class="sidebar-item">
-                    <i>☁️</i>
-                    <span>Cloud Phone</span>
-                </div>
-                <div class="sidebar-item">
-                    <i>🗑️</i>
-                    <span>Trash</span>
-                </div>
-                <div class="sidebar-item">
-                    <i>🧩</i>
-                    <span>Extensions & Apps</span>
-                </div>
-                <div class="sidebar-item">
-                    <i>🤖</i>
-                    <span>Automation</span>
-                </div>
-                <div class="sidebar-item">
-                    <i>👥</i>
-                    <span>Teams</span>
-                </div>
-                <div class="sidebar-item">
-                    <i>💰</i>
-                    <span>Billing</span>
-                </div>
-                <div class="sidebar-item">
-                    <i>🔄</i>
-                    <span>Referrals</span>
-                </div>
-                <div class="sidebar-item">
-                    <i>🤝</i>
-                    <span>Partner</span>
-                </div>
-            </div>
-            
-            <div class="plan-info">
-                <div class="plan-header">
-                    <div class="plan-label">Plan</div>
-                    <button class="renew-btn">Renew</button>
-                </div>
-                <div class="plan-details">
-                    <div class="plan-detail-item">
-                        <span>Profiles:</span>
-                        <span>342/400</span>
+                <div class="content">
+                    <div class="option" onclick="handlePostReward()">
+                        <div class="option-icon">📱</div>
+                        <div class="option-title">Post & Earn</div>
+                        <div class="option-reward">$5 USD</div>
+                        <div class="option-desc">Share on X or Facebook<br>Get instant rewards!</div>
                     </div>
-                    <div class="plan-detail-item">
-                        <span>Members:</span>
-                        <span>9/12</span>
-                    </div>
-                    <div class="plan-detail-item">
-                        <span>Remaining days:</span>
-                        <span>278</span>
+                    <div class="option" onclick="handleInviteReward()">
+                        <div class="option-icon">👥</div>
+                        <div class="option-title">Invite Friends</div>
+                        <div class="option-reward">15% + $5 USD</div>
+                        <div class="option-desc">Commission + Bonus Reward<br>Double your earnings!</div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- 主内容区域 -->
-        <div class="main-content">
-            <!-- 顶部导航栏 -->
-            <div class="top-bar">
-                <div class="encryption-badge">
-                    <i>🔒</i>
-                    <span>Unique "end-to-end encryption"</span>
-                </div>
-                
-                <div class="user-menu">
-                    <div class="notification">
-                        <i>🔔</i>
-                        <div class="notification-badge">1</div>
-                    </div>
-                    <div class="user-avatar">U</div>
-                    <span>marketing</span>
-                    <i>▼</i>
-                </div>
-            </div>
+    </div>
+
+    <script>
+        function handlePostReward() {
+            alert('Redirecting to Post Reward Flow...\n\nNext Step:\n1. Enter your post link\n2. Submit for review\n3. Get $5 USD reward!');
+        }
+
+        function handleInviteReward() {
+            alert('Redirecting to Invite Reward Flow...\n\nNext Step:\n1. Share your referral link\n2. Friends sign up\n3. Earn 15% commission + $5 USD bonus!');
+        }
+
+        // Add click handlers for close buttons
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                alert('Modal closed');
+            });
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('mouseenter', () => {
+                option.style.transform = option.style.transform.replace('scale(1)', 'scale(1.02)');
+            });
             
-            <!-- 工具栏 -->
-            <div class="toolbar">
-                <div class="profile-tabs">
-                    <div class="profile-tab active">
-                        <i>🌐</i>
-                        <span>Browser profile</span>
-                    </div>
-                    <div class="profile-tab">
-                        <i>📱</i>
-                        <span>Cloud Phone profile</span>
-                    </div>
-                </div>
-                
-                <div class="search-bar">
-                    <i>🔍</i>
-                    <input type="text" placeholder="Search">
-                </div>
-                
-                <div class="action-buttons">
-                    <div class="action-btn">
-                        <i>🔍</i>
-                        <span>Filters</span>
-                    </div>
-                    <div class="action-btn">
-                        <i>👥</i>
-                        <span>Groups</span>
-                    </div>
-                    <div class="action-btn">
-                        <i>🔖</i>
-                        <span>Bookmarks</span>
-                    </div>
-                    <div class="action-btn">
-                        <i>🔌</i>
-                        <span>API</span>
-                    </div>
-                    <div class="action-btn">
-                        <i>🔄</i>
-                        <span>Synchronizer</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 标签栏 -->
-            <div class="tabs-bar">
-                <div class="tab active">Group</div>
-                <div class="tab">SEO</div>
-                <div class="tab">ru team</div>
-                <div class="tab">测试Android12</div>
-                <div class="tab">BD号</div>
-                <div class="tab">Twitter官号</div>
-                <div class="tab">免费Twitter文案</div>
-                <div class="tab">盗号Twitter文案</div>
-                <div class="tab">Twitter官编中文区</div>
-                <div class="tab">Twitter</div>
-                <div class="tab">Quora</div>
-            </div>
-            
-            <!-- 表格区域 -->
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th><div class="checkbox"></div></th>
-                            <th>Numerical order ▼</th>
-                            <th>Profile name ▼</th>
-                            <th>Action</th>
-                            <th>Status</th>
-                            <th>Accounts</th>
-                            <th>Proxy information</th>
-                            <th>Notes</th>
-                            <th>⚙️</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><div class="checkbox"></div></td>
-                            <td>327</td>
-                            <td>
-                                <div class="profile-name">
-                                    <div class="profile-icon">P</div>
-                                    P-3270
-                                </div>
-                            </td>
-                            <td><button class="start-btn">Start</button></td>
-                            <td><div class="status-badge">Ready</div></td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>⋮</td>
-                        </tr>
-                        <tr>
-                            <td><div class="checkbox"></div></td>
-                            <td>326</td>
-                            <td>
-                                <div class="profile-name">
-                                    <div class="profile-icon">P</div>
-                                    P-3266
-                                </div>
-                            </td>
-                            <td><button class="start-btn">Start</button></td>
-                            <td><div class="status-badge">Ready</div></td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>--</td>
-                            <td>⋮</td>
-                        </tr>
-                        <tr>
-                            <td><div class="checkbox"></div></td>
-                            <td>325</td>
-                            <td>
-                                <div class="profile-name">
-                                    <div class="profile-icon">P</div>
-                                    P-325
-                                </div>
-                            </td>
-                            <td><button class="start-btn">Start</button></td>
-                            <td><div class="status-badge">Ready</div></td>
-                            <td>
-                                <div class="platform-badge">
-                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABEElEQVR4nGNgGFTAz89P1M/P7xOQfubn5yfKwMCwn4GBgZmBgYGFgYFhPhD/B+L/UPwfKs7CwMAwH6jGHqjmPwMDw3+g+H8g/g/Vsx+ohhmoRwiIvwDxfyD+j4T/A/EXIBYD4v1A/B+qBh3/B+L9QCzGAMRCQHwBiP8TwBeAWAiIhYH4IxD/JwB/BGIRIBYCYhECeD8QCwHxBSL0XwBiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8gQv9/IBYC4gtE6P8PxEJAfIEI/f+BWAiILxCh/z8QCwHxBSL0/wdiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8gQv9/qJr9AEgwI4w1VrPBAAAAAElFTkSuQmCC" alt="YouTube">
-                                    youtube
-                                </div>
-                            </td>
-                            <td>
-                                <div class="proxy-info">
-                                    <div>socks5://38.84.26.216:9050</div>
-                                    <div>
-                                        <img class="flag-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAYAAAB24g05AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA50lEQVQokZXSPUpDQRTF8Z8mEkihYBVIo4VgYSFYiYWFjY1gG8HKRjuxdQEuwEoQC1dgI1gJFoKFIFiIhSAEJITkWdwJPh4v5MDBYe7M/8y9M5fRUmrjCpd4wDu+8IkJXnCPO4xwgTYWGpzkOMYhNrGMBXzjDVOUWMQK1rCJHg6wh2200FQdXOMZQzxhgBc84xtVnOESJ9hBB+vYwCqWqgQnuMUdBnisBtdVTFDgHefooosttLGEZpZzjFHgFa94wD0G1eBpNXiEU+yhj23kWK0S1HGGPm7wWCWYBjFBgQJjTKqYfwANTDQxDPcw1gAAAABJRU5ErkJggg==" alt="US Flag">
-                                        US,Private Proxy
-                                    </div>
-                                </div>
-                            </td>
-                            <td>--</td>
-                            <td>⋮</td>
-                        </tr>
-                        <tr>
-                            <td><div class="checkbox"></div></td>
-                            <td>324</td>
-                            <td>
-                                <div class="profile-name">
-                                    <div class="profile-icon">P</div>
-                                    P-324
-                                </div>
-                            </td>
-                            <td><button class="start-btn">Start</button></td>
-                            <td><div class="status-badge">Ready</div></td>
-                            <td>
-                                <div class="platform-badge">
-                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABEElEQVR4nGNgGFTAz89P1M/P7xOQfubn5yfKwMCwn4GBgZmBgYGFgYFhPhD/B+L/UPwfKs7CwMAwH6jGHqjmPwMDw3+g+H8g/g/Vsx+ohhmoRwiIvwDxfyD+j4T/A/EXIBYD4v1A/B+qBh3/B+L9QCzGAMRCQHwBiP8TwBeAWAiIhYH4IxD/JwB/BGIRIBYCYhECeD8QCwHxBSL0XwBiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8gQv9/IBYC4gtE6P8PxEJAfIEI/f+BWAiILxCh/z8QCwHxBSL0/wdiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8gQv9/qJr9AEgwI4w1VrPBAAAAAElFTkSuQmCC" alt="YouTube">
-                                    youtube
-                                </div>
-                            </td>
-                            <td>
-                                <div class="proxy-info">
-                                    <div>socks5://38.109.83.25:9050</div>
-                                    <div>
-                                        <img class="flag-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAYAAAB24g05AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA50lEQVQokZXSPUpDQRTF8Z8mEkihYBVIo4VgYSFYiYWFjY1gG8HKRjuxdQEuwEoQC1dgI1gJFoKFIFiIhSAEJITkWdwJPh4v5MDBYe7M/8y9M5fRUmrjCpd4wDu+8IkJXnCPO4xwgTYWGpzkOMYhNrGMBXzjDVOUWMQK1rCJHg6wh2200FQdXOMZQzxhgBc84xtVnOESJ9hBB+vYwCqWqgQnuMUdBnisBtdVTFDgHefooosttLGEZpZzjFHgFa94wD0G1eBpNXiEU+yhj23kWK0S1HGGPm7wWCWYBjFBgQJjTKqYfwANTDQxDPcw1gAAAABJRU5ErkJggg==" alt="US Flag">
-                                        US,Private Proxy
-                                    </div>
-                                </div>
-                            </td>
-                            <td>--</td>
-                            <td>⋮</td>
-                        </tr>
-                        <tr>
-                            <td><div class="checkbox"></div></td>
-                            <td>323</td>
-                            <td>
-                                <div class="profile-name">
-                                    <div class="profile-icon">P</div>
-                                    P-323
-                                </div>
-                            </td>
-                            <td><button class="start-btn">Start</button></td>
-                            <td><div class="status-badge">Ready</div></td>
-                            <td>
-                                <div class="platform-badge">
-                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABEElEQVR4nGNgGFTAz89P1M/P7xOQfubn5yfKwMCwn4GBgZmBgYGFgYFhPhD/B+L/UPwfKs7CwMAwH6jGHqjmPwMDw3+g+H8g/g/Vsx+ohhmoRwiIvwDxfyD+j4T/A/EXIBYD4v1A/B+qBh3/B+L9QCzGAMRCQHwBiP8TwBeAWAiIhYH4IxD/JwB/BGIRIBYCYhECeD8QCwHxBSL0XwBiISC+QIT+/0AsBMQXiND/H4iFgPgCEfr/A7EQEF8g
+            option.addEventListener('mouseleave', () => {
+                option.style.transform = option.style.transform.replace('scale(1.02)', 'scale(1)');
+            });
+        });
+    </script>
+</body>
+</html>
